@@ -392,37 +392,9 @@ const DESTINATIONS = [
       "If visiting during October, experience the Dasara procession.",
       "Try Mysore Pak — the famous sweet — from authentic local shops.",
       "Book accommodation in advance if visiting during Dasara."
-        ]
-  },
-  {
-    id: "rameshwaram",
-    name: "Rameshwaram",
-    state: "Tamil Nadu",
-    tagline: "Sacred Shores & Island Beauty",
-    description: "A beautiful island town known for its sacred temples, pristine beaches, historic landmarks and the spectacular Pamban Bridge.",
-    image: "https://images.unsplash.com/photo-1600100397608-f010dbd7f2c4?w=600&q=80",
-    bestSeason: "Oct – Apr",
-    bestSeasonLabel: "Winter",
-    recommendedDays: "2–3 Days",
-    budget: { budget: "₹800–1,500/day", moderate: "₹2,000–3,500/day", premium: "₹5,000+/day" },
-    about: "Rameshwaram is one of India's important pilgrimage destinations and is located on Pamban Island in Tamil Nadu. The town is famous for the Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi and its peaceful coastal landscapes.",
-    culture: "Rameshwaram has a strong spiritual and Tamil cultural heritage. The Ramanathaswamy Temple and its long corridors are major attractions, while traditional festivals and local seafood cuisine add to the character of the island.",
-    weather: { summer: "Hot & humid (30–38°C)", monsoon: "Warm with occasional rain", winter: "Pleasant (22–30°C)", recommended: "Oct–Apr", reason: "The cooler weather makes temple visits, sightseeing and exploring the coastal areas more comfortable." },
-    howToReach: { air: "Madurai Airport (IXM) is the nearest major airport, about 170 km away.", train: "Rameshwaram Railway Station connects the town with Madurai, Chennai and other cities.", road: "Well-connected by road to Madurai, Ramanathapuram and other parts of Tamil Nadu." },
-    transport: ["Auto-rickshaws", "Taxis", "Local Buses", "Rental Cars"],
-    tags: ["Religious", "Historical", "Beach"],
-    tips: [
-      "Visit Ramanathaswamy Temple early in the morning to avoid large crowds.",
-      "Dress respectfully when visiting temples.",
-      "Visit Pamban Bridge for scenic views.",
-      "Explore Dhanushkodi and its surrounding coastline.",
-      "Carry water and sun protection while sightseeing.",
-      "Check local weather conditions before visiting coastal areas."
     ]
   }
 ];
-  
-
 
 // ─────────────────────────────────────────────────────────────
 //  TOURIST PLACES (3 per destination for brevity + quality)
