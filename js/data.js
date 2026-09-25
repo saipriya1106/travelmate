@@ -374,7 +374,7 @@ const DESTINATIONS = [
     state: "Karnataka",
     tagline: "City of Palaces",
     description: "The magnificent Mysore Palace illuminated during Dasara, fragrant sandalwood, silk sarees and the Chamundi Hills make Mysore a cultural gem.",
-    image: "images/mysore.jpg",
+    image: "images/mysore_palace.jpg",
     bestSeason: "Oct – Mar",
     bestSeasonLabel: "Winter",
     recommendedDays: "2–3 Days",
