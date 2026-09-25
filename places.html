@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tourist Places – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌍</span> TravelMate</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="destinations.html">Destinations</a></li>
+      <li><a href="places.html" class="active">Places</a></li>
+      <li><a href="travel-tips.html">Travel Tips</a></li>
+      <li><a href="food.html">Food & Travel</a></li>
+      <li><a href="checklist.html">Checklist</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🗺️ Tourist Places</h1>
+  <p>Discover iconic attractions, natural wonders, historical sites and cultural landmarks across India.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="search-bar-wrap">
+      <div class="search-input-wrap">
+        <span class="ico">🔍</span>
+        <input type="text" class="search-input" id="placeSearch" placeholder="Search places…" oninput="applyPlaceFilters()" />
+      </div>
+      <select class="filter-select" id="destFilter" onchange="applyPlaceFilters()">
+        <option value="">All Destinations</option>
+      </select>
+      <select class="filter-select" id="typeFilter" onchange="applyPlaceFilters()">
+        <option value="">All Types</option>
+        <option value="Historical">🏰 Historical</option>
+        <option value="Nature">🌿 Nature</option>
+        <option value="Beach">🏖️ Beach</option>
+        <option value="Adventure">🏔️ Adventure</option>
+        <option value="Religious">🙏 Religious</option>
+        <option value="Wildlife">🐘 Wildlife</option>
+        <option value="Cultural">🎭 Cultural</option>
+        <option value="Lake/River">💧 Lake/River</option>
+      </select>
+    </div>
+    <div class="cards-grid" id="placesGrid"></div>
+    <div class="no-results" id="noResults" style="display:none">
+      <div class="icon">🔍</div>
+      <p>No places found. Try a different search or filter.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><h2>🌍 TravelMate</h2><p>Informational tourist guide. No booking services.</p></div>
+      <div class="footer-col"><h3>Navigate</h3><ul>
+        <li><a href="index.html">Home</a></li><li><a href="destinations.html">Destinations</a></li>
+        <li><a href="places.html">Places</a></li><li><a href="travel-tips.html">Travel Tips</a></li>
+        <li><a href="food.html">Food & Travel</a></li><li><a href="contact.html">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 TravelMate – Smart Tourist Guide. B.Tech Mini Project.</p></div>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/places-data.js"></script>
+<script>
+  // Populate destination filter
+  const df = document.getElementById('destFilter');
+  DESTINATIONS.forEach(d => { df.innerHTML += `<option value="${d.id}">${d.name}</option>`; });
+
+  // Check URL param for pre-selected destination
+  const params = new URLSearchParams(window.location.search);
+  const preselect = params.get('dest');
+  if (preselect) df.value = preselect;
+
+  function getAllPlaces() {
+    if (!window.PLACES_DATA) return [];
+    let all = [];
+    Object.entries(PLACES_DATA).forEach(([destId, places]) => {
+      const dest = DESTINATIONS.find(d => d.id === destId);
+      places.forEach(p => all.push({ ...p, destId, destName: dest ? dest.name : destId }));
+    });
+    return all;
+  }
+
+  function applyPlaceFilters() {
+    const q = document.getElementById('placeSearch').value.toLowerCase();
+    const dest = document.getElementById('destFilter').value;
+    const type = document.getElementById('typeFilter').value;
+    const all = getAllPlaces();
+    const list = all.filter(p => {
+      const mq = p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
+      const md = !dest || p.destId === dest;
+      const mt = !type || p.type === type;
+      return mq && md && mt;
+    });
+    renderPlaces(list);
+  }
+
+  function renderPlaces(list) {
+    const g = document.getElementById('placesGrid');
+    const nr = document.getElementById('noResults');
+    if (!list.length) { g.innerHTML = ''; nr.style.display = 'block'; return; }
+    nr.style.display = 'none';
+    g.innerHTML = list.map(p => `
+      <div class="place-card">
+        <div class="place-card-img">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" />
+          <span class="place-type-badge">${p.type}</span>
+        </div>
+        <div class="place-card-body">
+          <h3>${p.name}</h3>
+          <div style="display:inline-block;margin-bottom:.5rem">
+            <span class="badge badge-blue" style="font-size:.72rem">${p.destName}</span>
+          </div>
+          <div class="place-meta">
+            <span class="place-meta-item">📍 ${p.location}</span>
+            <span class="place-meta-item">⏱️ ${p.duration}</span>
+            <span class="place-meta-item">🌿 ${p.bestTime}</span>
+          </div>
+          <p>${p.description}</p>
+          <a href="destination-detail.html?id=${p.destId}" class="btn btn-primary btn-sm">View Destination →</a>
+        </div>
+      </div>`).join('');
+  }
+
+  applyPlaceFilters();
+</script>
+</body>
+</html>

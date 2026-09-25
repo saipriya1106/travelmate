@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinations – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">✈️</div><span>TravelMate</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="destinations.html" class="active">Destinations</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="food.html">Food & Culture</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ─── Page Hero ──────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container">
+    <h1>🗺️ Explore Destinations</h1>
+    <p>Discover 15 iconic Indian destinations — each with the best time to visit, places, food and travel tips.</p>
+  </div>
+</div>
+
+<!-- ─── Search & Filter ───────────────────────────────────── -->
+<section class="section-sm section-alt" style="padding:2rem 0">
+  <div class="container">
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <div class="search-bar" style="max-width:400px">
+        <span>🔍</span>
+        <input type="text" id="destSearch" placeholder="Search destinations…" autocomplete="off">
+        <button class="btn btn-primary btn-sm" type="button">Search</button>
+      </div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
+        <select id="seasonFilter" class="form-control" style="width:auto;border-radius:99px;padding:.5rem 1rem">
+          <option value="all">All Seasons</option>
+          <option value="winter">Winter</option>
+          <option value="summer">Summer</option>
+          <option value="spring">Spring / Autumn</option>
+        </select>
+        <select id="tagFilter" class="form-control" style="width:auto;border-radius:99px;padding:.5rem 1rem">
+          <option value="all">All Types</option>
+          <option value="beaches">Beaches</option>
+          <option value="historical">Historical</option>
+          <option value="nature">Nature</option>
+          <option value="adventure">Adventure</option>
+          <option value="cultural">Cultural</option>
+          <option value="religious">Religious</option>
+          <option value="wildlife">Wildlife</option>
+        </select>
+      </div>
+    </div>
+    <!-- Filter pills -->
+    <div class="filter-pills">
+      <button class="pill active" data-pill="all">All</button>
+      <button class="pill" data-pill="Beaches">🏖️ Beaches</button>
+      <button class="pill" data-pill="Historical">🏛️ Historical</button>
+      <button class="pill" data-pill="Nature">🌿 Nature</button>
+      <button class="pill" data-pill="Adventure">🧗 Adventure</button>
+      <button class="pill" data-pill="Cultural">🎭 Cultural</button>
+      <button class="pill" data-pill="Religious">🛕 Religious</button>
+      <button class="pill" data-pill="Wildlife">🦁 Wildlife</button>
+    </div>
+    <p id="destCount" style="font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem"></p>
+  </div>
+</section>
+
+<!-- ─── Grid ──────────────────────────────────────────────── -->
+<section class="section-sm" style="padding:2rem 0 4rem">
+  <div class="container">
+    <div class="cards-grid stagger" id="destGrid">
+      <!-- populated by destinations.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ─── When to Visit Feature ─────────────────────────────── -->
+<section class="section section-alt" id="when">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">📅 When Should I Visit?</span>
+      <h2>Best Time to Visit – Quick Reference</h2>
+      <p>Season-wise summaries for all 15 destinations at a glance.</p>
+    </div>
+    <div style="margin-bottom:1.5rem">
+      <div class="search-bar" style="max-width:380px;margin:0 auto">
+        <span>🔍</span>
+        <input type="text" id="whenSearch" placeholder="Type destination name…" oninput="filterWhen()">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem" id="whenGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">✈️ TravelMate</div><p>India's informational tourist guide — free travel information, no booking services.</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="travel-tips.html">Travel Tips</a></div>
+      <div class="footer-col"><h4>Discover</h4><a href="food.html">Food & Culture</a><a href="about.html">About</a><a href="contact.html">Feedback</a></div>
+      <div class="footer-col"><h4>Note</h4><p style="font-size:.85rem">TravelMate is an informational guide only. No ticket, hotel or transport booking is offered.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 TravelMate — B.Tech Mini Project</span><span>Informational Guide Only</span></div>
+  </div>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/destinations.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ─── When to Visit grid ───────────────────────────────────
+  const wg = document.getElementById('whenGrid');
+  DESTINATIONS.forEach(d => {
+    wg.innerHTML += `
+      <div class="info-item when-card" data-name="${d.name.toLowerCase()}" style="border-left:4px solid var(--primary)">
+        <div style="font-weight:700;margin-bottom:.4rem">📍 ${d.name}</div>
+        <span class="badge badge-green" style="margin-bottom:.6rem">🌿 ${d.bestSeason}</span><br>
+        <span class="badge badge-blue">${d.bestSeasonLabel}</span>
+        <div style="margin-top:.75rem;font-size:.85rem;color:var(--text-muted);line-height:1.7">
+          <strong>Weather:</strong> ${d.weather.recommended}<br>
+          <em>${d.weather.reason}</em>
+        </div>
+        <a href="destination-detail.html?id=${d.id}" class="btn btn-primary btn-sm" style="margin-top:.75rem">Full Details →</a>
+      </div>`;
+  });
+
+  function filterWhen() {
+    const q = document.getElementById('whenSearch').value.toLowerCase();
+    document.querySelectorAll('.when-card').forEach(c => {
+      c.style.display = c.dataset.name.includes(q) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

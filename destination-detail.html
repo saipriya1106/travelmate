@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Destination – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .detail-hero { position:relative; height:420px; background:#0f172a; }
+    .detail-hero img { width:100%; height:100%; object-fit:cover; opacity:.55; }
+    .detail-overlay {
+      position:absolute; bottom:0; left:0; right:0;
+      background:linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 100%);
+      padding:2.5rem 0 2rem;
+    }
+    .detail-overlay .container { color:#fff; }
+    .detail-overlay h1 { font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:.3rem; }
+    .detail-overlay .tagline { color:rgba(255,255,255,.75); font-size:1.05rem; }
+    .tab-bar { background:#fff; border-bottom:2px solid var(--border); position:sticky; top:70px; z-index:90; }
+    .tab-bar-inner { display:flex; overflow-x:auto; gap:0; }
+    .tab-btn {
+      padding:.9rem 1.2rem; font-size:.88rem; font-weight:600;
+      color:var(--text-muted); border-bottom:3px solid transparent;
+      white-space:nowrap; transition:var(--transition); cursor:pointer;
+    }
+    .tab-btn:hover { color:var(--primary); }
+    .tab-btn.active { color:var(--primary); border-bottom-color:var(--primary); }
+    .tab-panel { display:none; padding:3rem 0; }
+    .tab-panel.active { display:block; }
+    .weather-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+    .w-card { border-radius:var(--radius); padding:1.5rem; text-align:center; }
+    .w-card .w-icon { font-size:2.2rem; margin-bottom:.75rem; }
+    .w-card h4 { font-size:.95rem; margin-bottom:.4rem; }
+    .w-card p { font-size:.85rem; margin:0; }
+    .w-summer  { background:#fff7ed; border:1px solid #fed7aa; }
+    .w-monsoon { background:#eff6ff; border:1px solid #bfdbfe; }
+    .w-winter  { background:#f0fdf4; border:1px solid #bbf7d0; }
+    .w-best    { background:#fdf4ff; border:2px solid #d8b4fe; }
+    .reach-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; }
+    .reach-card { background:var(--surface); border-radius:var(--radius); padding:1.4rem; border-top:4px solid var(--accent); }
+    .reach-card .r-icon { font-size:2rem; margin-bottom:.6rem; }
+    .reach-card h4 { font-weight:700; margin-bottom:.4rem; font-size:.95rem; }
+    .reach-card p { font-size:.875rem; margin:0; }
+    .budget-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    @media (max-width:600px) { .budget-grid { grid-template-columns:1fr; } }
+    .budget-card { border-radius:var(--radius); padding:1.5rem; text-align:center; }
+    .b-budget  { background:#f0fdf4; border:1px solid #86efac; }
+    .b-moderate{ background:#fef3c7; border:1px solid #fde68a; }
+    .b-premium { background:#fdf4ff; border:1px solid #d8b4fe; }
+    .budget-card h4 { font-size:.9rem; font-weight:700; margin-bottom:.5rem; }
+    .budget-card .price { font-size:1.1rem; font-weight:800; margin-bottom:.25rem; }
+    .places-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
+    .place-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); transition:var(--transition); }
+    .place-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); }
+    .place-card img { width:100%; height:170px; object-fit:cover; }
+    .place-card-body { padding:1.1rem; }
+    .place-card-body h4 { font-size:1rem; margin-bottom:.35rem; }
+    .food-tags { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.5rem; }
+    .food-tag { background:#f0fdf4; color:#15803d; border-radius:99px; padding:.25rem .7rem; font-size:.8rem; font-weight:600; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">✈️</div><span>TravelMate</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="food.html">Food & Culture</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ─── Detail Hero ────────────────────────────────────────── -->
+<div class="detail-hero" id="detailHero">
+  <img id="heroImg" src="" alt="">
+  <div class="detail-overlay">
+    <div class="container">
+      <div id="heroBreadcrumb" style="font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:.4rem">
+        <a href="destinations.html" style="color:rgba(255,255,255,.6)">← Destinations</a>
+      </div>
+      <h1 id="heroTitle">Loading…</h1>
+      <p class="tagline" id="heroTagline"></p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem" id="heroBadges"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Tab Bar ───────────────────────────────────────────── -->
+<div class="tab-bar">
+  <div class="container tab-bar-inner">
+    <button class="tab-btn active" onclick="showTab('overview',this)">📖 Overview</button>
+    <button class="tab-btn" onclick="showTab('weather',this)">🌤️ Best Time</button>
+    <button class="tab-btn" onclick="showTab('places',this)">🏛️ Places</button>
+    <button class="tab-btn" onclick="showTab('food',this)">🍛 Food</button>
+    <button class="tab-btn" onclick="showTab('transport',this)">🚌 Transport</button>
+    <button class="tab-btn" onclick="showTab('tips',this)">💡 Tips</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ─── Overview Tab ──────────────────────────────────────── -->
+<div class="tab-panel active" id="tab-overview">
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:2.5rem;align-items:start">
+    <div>
+      <span class="badge badge-blue" style="margin-bottom:1rem">About the Destination</span>
+      <h2 id="overviewTitle" style="margin-bottom:1rem"></h2>
+      <p id="overviewAbout" style="font-size:1rem;line-height:1.85;margin-bottom:1.5rem"></p>
+      <h3 style="margin-bottom:.75rem">🎭 Culture & Speciality</h3>
+      <p id="overviewCulture" style="font-size:.95rem;line-height:1.8"></p>
+    </div>
+    <div>
+      <div class="info-item" style="margin-bottom:1rem">
+        <div class="info-label">Best Season</div>
+        <div class="info-val" id="ovBestSeason"></div>
+      </div>
+      <div class="info-item" style="margin-bottom:1rem">
+        <div class="info-label">Recommended Duration</div>
+        <div class="info-val" id="ovDuration"></div>
+      </div>
+      <div class="info-item" style="margin-bottom:1rem">
+        <div class="info-label">State / Region</div>
+        <div class="info-val" id="ovState"></div>
+      </div>
+      <div class="info-item" style="margin-bottom:1rem">
+        <div class="info-label">Category Tags</div>
+        <div class="info-val" id="ovTags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Weather / Best Time Tab ───────────────────────────── -->
+<div class="tab-panel" id="tab-weather">
+  <h2 style="margin-bottom:.5rem">🌤️ Best Time to Visit</h2>
+  <p id="weatherIntro" style="margin-bottom:2rem"></p>
+  <div class="weather-grid">
+    <div class="w-card w-summer">
+      <div class="w-icon">☀️</div>
+      <h4>Summer</h4>
+      <p id="wSummer"></p>
+    </div>
+    <div class="w-card w-monsoon">
+      <div class="w-icon">🌧️</div>
+      <h4>Monsoon</h4>
+      <p id="wMonsoon"></p>
+    </div>
+    <div class="w-card w-winter">
+      <div class="w-icon">❄️</div>
+      <h4>Winter</h4>
+      <p id="wWinter"></p>
+    </div>
+    <div class="w-card w-best" style="grid-column:span 1">
+      <div class="w-icon">✅</div>
+      <h4>Recommended</h4>
+      <p id="wRecommended" style="font-weight:600"></p>
+    </div>
+  </div>
+  <div class="info-item" style="margin-top:1.5rem;border-left:4px solid var(--primary)">
+    <div class="info-label">Why This Season?</div>
+    <div class="info-val" style="font-weight:400;font-size:.95rem;line-height:1.75" id="wReason"></div>
+  </div>
+</div>
+
+<!-- ─── Places Tab ────────────────────────────────────────── -->
+<div class="tab-panel" id="tab-places">
+  <h2 style="margin-bottom:.5rem">🏛️ Tourist Places</h2>
+  <p style="margin-bottom:2rem;color:var(--text-muted)">Major attractions to visit at this destination.</p>
+  <div class="places-grid" id="placesGrid"></div>
+</div>
+
+<!-- ─── Food Tab ──────────────────────────────────────────── -->
+<div class="tab-panel" id="tab-food">
+  <h2 style="margin-bottom:.5rem">🍛 Local Food & Experiences</h2>
+  <p style="margin-bottom:2rem;color:var(--text-muted)">Famous dishes, food culture and local markets.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem">
+    <div class="info-item">
+      <div class="info-label" style="font-size:.85rem;margin-bottom:.75rem">🍽️ Famous Local Dishes</div>
+      <div class="food-tags" id="foodDishes"></div>
+    </div>
+    <div class="info-item">
+      <div class="info-label" style="font-size:.85rem;margin-bottom:.5rem">✨ Food Experience</div>
+      <div class="info-val" style="font-weight:400;font-size:.9rem;line-height:1.7" id="foodExp"></div>
+    </div>
+    <div class="info-item">
+      <div class="info-label" style="font-size:.85rem;margin-bottom:.5rem">🛒 Local Markets</div>
+      <div class="info-val" style="font-weight:400;font-size:.9rem;line-height:1.7" id="foodMarket"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Transport Tab ─────────────────────────────────────── -->
+<div class="tab-panel" id="tab-transport">
+  <h2 style="margin-bottom:.5rem">🚌 Transport & How to Reach</h2>
+  <p style="margin-bottom:2rem;color:var(--text-muted)">Local transport options and ways to reach this destination.</p>
+  <h3 style="margin-bottom:1rem">Local Transport</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem" id="transportList"></div>
+  <h3 style="margin-bottom:1rem">How to Reach</h3>
+  <div class="reach-grid">
+    <div class="reach-card">
+      <div class="r-icon">✈️</div>
+      <h4>By Air</h4>
+      <p id="reachAir"></p>
+    </div>
+    <div class="reach-card" style="border-top-color:var(--primary)">
+      <div class="r-icon">🚂</div>
+      <h4>By Train</h4>
+      <p id="reachTrain"></p>
+    </div>
+    <div class="reach-card" style="border-top-color:#10b981">
+      <div class="r-icon">🚌</div>
+      <h4>By Road</h4>
+      <p id="reachRoad"></p>
+    </div>
+  </div>
+  <h3 style="margin-top:2.5rem;margin-bottom:1rem">Budget Guide</h3>
+  <div class="budget-grid">
+    <div class="budget-card b-budget">
+      <h4>💸 Budget</h4>
+      <div class="price" id="budgetLow" style="color:#15803d"></div>
+      <div style="font-size:.8rem;color:var(--text-muted)">Per day approx.</div>
+    </div>
+    <div class="budget-card b-moderate">
+      <h4>🏨 Moderate</h4>
+      <div class="price" id="budgetMid" style="color:#92400e"></div>
+      <div style="font-size:.8rem;color:var(--text-muted)">Per day approx.</div>
+    </div>
+    <div class="budget-card b-premium">
+      <h4>💎 Premium</h4>
+      <div class="price" id="budgetHigh" style="color:#7c3aed"></div>
+      <div style="font-size:.8rem;color:var(--text-muted)">Per day approx.</div>
+    </div>
+  </div>
+  <p style="font-size:.8rem;margin-top:.75rem;color:var(--text-light)">* Budget estimates are approximate and for informational purposes only.</p>
+</div>
+
+<!-- ─── Tips Tab ──────────────────────────────────────────── -->
+<div class="tab-panel" id="tab-tips">
+  <h2 style="margin-bottom:.5rem">💡 Destination-Specific Tips</h2>
+  <p style="margin-bottom:2rem;color:var(--text-muted)">Practical advice specific to this destination.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem" id="tipsList"></div>
+  <div style="margin-top:2.5rem;text-align:center">
+    <a href="travel-tips.html" class="btn btn-primary">📋 View All General Travel Tips →</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div style="padding:3rem 0;background:var(--surface);margin-top:3rem">
+  <div class="container" style="text-align:center">
+    <h3 style="margin-bottom:.5rem">Explore More Destinations</h3>
+    <p style="margin-bottom:1.5rem">Discover other amazing places across India.</p>
+    <a href="destinations.html" class="btn btn-primary btn-lg">🗺️ All Destinations →</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">✈️ TravelMate</div><p>Informational tourist guide — no booking services.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="travel-tips.html">Travel Tips</a></div>
+      <div class="footer-col"><h4>Discover</h4><a href="food.html">Food & Culture</a><a href="about.html">About</a><a href="contact.html">Feedback</a></div>
+      <div class="footer-col"><h4>Note</h4><p style="font-size:.85rem">No ticket or hotel booking offered.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 TravelMate — B.Tech Mini Project</span><span>Informational Guide Only</span></div>
+  </div>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ─── Tab system ────────────────────────────────────────────
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ─── Load destination data ─────────────────────────────────
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const dest = DESTINATIONS.find(d => d.id === id);
+
+  if (!dest) {
+    document.getElementById('heroTitle').textContent = 'Destination not found';
+  } else {
+    // Page title
+    document.title = dest.name + ' – TravelMate';
+
+    // Hero
+    document.getElementById('heroImg').src = dest.image;
+    document.getElementById('heroImg').alt = dest.name;
+    document.getElementById('heroTitle').textContent = dest.name;
+    document.getElementById('heroTagline').textContent = dest.tagline + ' · ' + dest.state;
+    document.getElementById('heroBadges').innerHTML =
+      `<span class="badge badge-amber">⭐ Best: ${dest.bestSeason}</span>
+       <span class="badge badge-green">🕐 ${dest.recommendedDays}</span>`;
+
+    // Overview
+    document.getElementById('overviewTitle').textContent = dest.name + ' – ' + dest.tagline;
+    document.getElementById('overviewAbout').textContent = dest.about;
+    document.getElementById('overviewCulture').textContent = dest.culture;
+    document.getElementById('ovBestSeason').textContent = dest.bestSeason;
+    document.getElementById('ovDuration').textContent = dest.recommendedDays;
+    document.getElementById('ovState').textContent = dest.state;
+    document.getElementById('ovTags').innerHTML = (dest.tags || []).map(t =>
+      `<span class="badge badge-blue" style="margin-right:.25rem">${t}</span>`).join('');
+
+    // Weather
+    document.getElementById('weatherIntro').textContent = 'Here is a seasonal breakdown for ' + dest.name + '.';
+    document.getElementById('wSummer').textContent = dest.weather.summer;
+    document.getElementById('wMonsoon').textContent = dest.weather.monsoon;
+    document.getElementById('wWinter').textContent = dest.weather.winter;
+    document.getElementById('wRecommended').textContent = dest.weather.recommended;
+    document.getElementById('wReason').textContent = dest.weather.reason;
+
+    // Places
+    const places = PLACES[id] || [];
+    document.getElementById('placesGrid').innerHTML = places.map(p => `
+      <div class="place-card">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="place-card-body">
+          <span class="badge badge-blue" style="margin-bottom:.4rem">${p.type}</span>
+          <h4>${p.name}</h4>
+          <p style="font-size:.85rem;color:var(--text-muted);margin:.3rem 0 .6rem">${p.description}</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+            <span style="font-size:.8rem;color:var(--text-muted)">⏱️ ${p.duration}</span>
+            <span style="font-size:.8rem;color:var(--text-muted)">📅 ${p.bestTime}</span>
+          </div>
+        </div>
+      </div>`).join('') || '<p>Places information coming soon.</p>';
+
+    // Food
+    const food = FOOD[id] || {};
+    document.getElementById('foodDishes').innerHTML = (food.dishes || []).map(d =>
+      `<span class="food-tag">${d}</span>`).join('');
+    document.getElementById('foodExp').textContent = food.experience || '—';
+    document.getElementById('foodMarket').textContent = food.market || '—';
+
+    // Transport
+    document.getElementById('transportList').innerHTML = (dest.transport || []).map(t =>
+      `<span class="badge badge-purple">${t}</span>`).join('');
+    document.getElementById('reachAir').textContent = dest.howToReach.air;
+    document.getElementById('reachTrain').textContent = dest.howToReach.train;
+    document.getElementById('reachRoad').textContent = dest.howToReach.road;
+    document.getElementById('budgetLow').textContent  = dest.budget.budget;
+    document.getElementById('budgetMid').textContent  = dest.budget.moderate;
+    document.getElementById('budgetHigh').textContent = dest.budget.premium;
+
+    // Tips
+    document.getElementById('tipsList').innerHTML = (dest.tips || []).map(tip => `
+      <div class="tip-card">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><p>${tip}</p></div>
+      </div>`).join('');
+  }
+</script>
+</body>
+</html>

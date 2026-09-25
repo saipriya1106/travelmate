@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate – Smart Tourist Guide</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    /* ── Home-page specific ── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .feature-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 1.75rem; box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .feature-card h3 { font-size: 1.05rem; margin-bottom: .4rem; margin-top: .5rem; }
+    .feature-card p  { font-size: .875rem; }
+    .dest-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+    .preview-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; height: 220px; }
+    .preview-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .preview-card:hover img { transform: scale(1.06); }
+    .preview-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+      padding: 1.5rem 1.25rem .85rem; color: #fff;
+    }
+    .preview-overlay h3 { font-size: 1rem; margin: 0; }
+    .preview-overlay span { font-size: .78rem; color: rgba(255,255,255,.75); }
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+    .how-step {
+      text-align: center; padding: 2rem 1.25rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+    }
+    .how-step .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto .75rem;
+    }
+    .how-step h4 { margin-bottom: .35rem; }
+    .how-step p  { font-size: .85rem; }
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+      padding: 5rem 0; text-align: center; color: #fff;
+    }
+    .cta-section h2 { color: #fff; margin-bottom: .75rem; }
+    .cta-section p  { color: rgba(255,255,255,.82); font-size: 1.05rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .q-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    @media (max-width: 768px) { .q-grid { grid-template-columns: 1fr; } }
+    .q-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+      text-align: center;
+    }
+    .q-card .q-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .q-card h4 { font-size: .95rem; margin-bottom: .25rem; }
+    .q-card p  { font-size: .8rem; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══════════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">✈️</div>
+      <span>TravelMate</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="food.html">Food & Culture</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content fade-in">
+      <div class="hero-eyebrow">🌍 India's Travel Information Guide</div>
+      <h1>TravelMate – <span>Explore.<br>Discover. Experience.</span></h1>
+      <p>Your simple guide to discovering amazing places, the best seasons to visit, local experiences and smart travel tips.</p>
+      <div class="hero-buttons">
+        <a href="destinations.html" class="btn btn-accent btn-lg">🧭 Explore Destinations</a>
+        <a href="travel-tips.html"  class="btn btn-white  btn-lg">📋 Travel Tips</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="stat-num">15+</div><div class="stat-label">Destinations Covered</div></div>
+        <div class="hero-stat"><div class="stat-num">50+</div><div class="stat-label">Tourist Places</div></div>
+        <div class="hero-stat"><div class="stat-num">100%</div><div class="stat-label">Free Information</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THREE QUESTIONS ══════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">What We Help With</span>
+      <h2>Answer Your Travel Questions</h2>
+      <p>TravelMate answers three essential questions before you plan any trip in India.</p>
+    </div>
+    <div class="q-grid">
+      <div class="q-card">
+        <div class="q-icon">🗺️</div>
+        <h4>Where Should I Go?</h4>
+        <p>Browse 15+ popular Indian destinations with detailed information.</p>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">📅</div>
+        <h4>When Is the Best Time?</h4>
+        <p>Season-by-season guides to help you pick the perfect travel window.</p>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">💡</div>
+        <h4>What Should I Know?</h4>
+        <p>Local tips, food, culture, transport and smart packing advice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Plan Smarter, Travel Better</span>
+      <h2>Your Simple Planning Guide</h2>
+      <p>Follow these easy steps to plan a well-informed, enjoyable trip.</p>
+    </div>
+    <div class="how-grid stagger">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <h4>Choose Destination</h4>
+        <p>Browse all Indian destinations, read descriptions and pick your ideal spot.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <h4>Check Best Season</h4>
+        <p>Understand the climate and pick the most comfortable time to travel.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <h4>Explore Places</h4>
+        <p>Discover major tourist attractions, their type and recommended visit duration.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">4</div>
+        <h4>Learn Local Food</h4>
+        <p>Know what to eat and where to find authentic local experiences.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">5</div>
+        <h4>Read Travel Tips</h4>
+        <p>Get practical advice on packing, safety, transport and etiquette.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">6</div>
+        <h4>Pack Your Checklist</h4>
+        <p>Use the interactive checklist to make sure you never forget an essential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY FEATURES ════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Features</span>
+      <h2>Everything in One Place</h2>
+      <p>All the travel information you need, neatly organised for quick access.</p>
+    </div>
+    <div class="features-grid stagger">
+      <div class="feature-card">
+        <div class="feature-icon icon-blue">🗺️</div>
+        <h3>Destination Guide</h3>
+        <p>Detailed profiles for 15 popular Indian destinations with culture, transport and budget guides.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">📅</div>
+        <h3>Best Time to Visit</h3>
+        <p>Season-wise recommendations and weather summaries for every destination.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-green">🍛</div>
+        <h3>Food & Culture</h3>
+        <p>Famous local dishes, food experiences, markets and cultural highlights for each place.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-purple">✅</div>
+        <h3>Travel Checklist</h3>
+        <p>Interactive packing checklist with progress tracking — saved in your browser automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-blue">💡</div>
+        <h3>Smart Travel Tips</h3>
+        <p>General and destination-specific tips including season-based advice for every type of traveller.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">🔍</div>
+        <h3>Search & Filter</h3>
+        <p>Instantly find destinations by name, season or attraction type with live search.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DESTINATION PREVIEW ══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Popular Picks</span>
+      <h2>Must-Visit Destinations</h2>
+      <p>A glimpse at some of India's most beloved travel destinations.</p>
+    </div>
+    <div class="dest-preview stagger">
+      <a href="destination-detail.html?id=goa" class="preview-card">
+        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500&q=75" alt="Goa" loading="lazy">
+        <div class="preview-overlay"><h3>Goa</h3><span>Sun, Sand & Serenity · Nov–Feb</span></div>
+      </a>
+      <a href="destination-detail.html?id=kerala" class="preview-card">
+        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=500&q=75" alt="Kerala" loading="lazy">
+        <div class="preview-overlay"><h3>Kerala</h3><span>God's Own Country · Oct–Mar</span></div>
+      </a>
+      <a href="destination-detail.html?id=rajasthan" class="preview-card">
+        <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500&q=75" alt="Rajasthan" loading="lazy">
+        <div class="preview-overlay"><h3>Rajasthan</h3><span>Land of Kings · Oct–Mar</span></div>
+      </a>
+      <a href="destination-detail.html?id=manali" class="preview-card">
+        <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=500&q=75" alt="Manali" loading="lazy">
+        <div class="preview-overlay"><h3>Manali</h3><span>Valley of the Gods · Mar–Jun</span></div>
+      </a>
+      <a href="destination-detail.html?id=kashmir" class="preview-card">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=75" alt="Kashmir" loading="lazy">
+        <div class="preview-overlay"><h3>Kashmir</h3><span>Paradise on Earth · Apr–Oct</span></div>
+      </a>
+      <a href="destinations.html" class="preview-card" style="background:linear-gradient(135deg,#1a73e8,#7c3aed);display:flex;align-items:center;justify-content:center;text-decoration:none">
+        <div style="text-align:center;color:#fff">
+          <div style="font-size:2.5rem;margin-bottom:.5rem">🧭</div>
+          <h3 style="color:#fff">View All 15+</h3>
+          <span style="color:rgba(255,255,255,.8);font-size:.85rem">Destinations →</span>
+        </div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="destinations.html" class="btn btn-primary btn-lg">View All Destinations →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ══════════════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Plan Your Journey?</h2>
+    <p>TravelMate gives you all the information you need — completely free, no booking required.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="destinations.html" class="btn btn-white btn-lg">🗺️ Browse Destinations</a>
+      <a href="travel-tips.html"  class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.6)">📋 Travel Tips</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">✈️ TravelMate</div>
+        <p>An informational tourist guide helping travellers discover India's best destinations, seasons, local food and travel tips — completely free.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="destinations.html">All Destinations</a>
+        <a href="travel-tips.html">Travel Tips</a>
+        <a href="food.html">Food & Culture</a>
+      </div>
+      <div class="footer-col">
+        <h4>Plan</h4>
+        <a href="travel-tips.html#checklist">Travel Checklist</a>
+        <a href="travel-tips.html#season">Season Guide</a>
+        <a href="travel-tips.html#when">When to Visit</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="about.html">About TravelMate</a>
+        <a href="contact.html">Feedback</a>
+        <p style="font-size:.8rem;margin-top:.5rem;color:rgba(255,255,255,.45)">ℹ️ No booking services offered.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 TravelMate — B.Tech Mini Project · Informational Guide Only</span>
+      <span>Made with ❤️ for travellers</span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

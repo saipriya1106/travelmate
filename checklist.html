@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Checklist – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌍</span> TravelMate</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="destinations.html">Destinations</a></li>
+      <li><a href="places.html">Places</a></li>
+      <li><a href="travel-tips.html">Travel Tips</a></li>
+      <li><a href="food.html">Food & Travel</a></li>
+      <li><a href="checklist.html" class="active">Checklist</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>✅ My Travel Checklist</h1>
+  <p>Tick off items as you pack. Never forget anything important before your trip.</p>
+</div>
+
+<section class="section">
+  <div class="container" style="max-width:900px">
+    <!-- Progress Bar -->
+    <div class="checklist-progress">
+      <div>
+        <div style="font-size:1.5rem;font-weight:800" id="progressCount">0 / 20</div>
+        <div style="font-size:.85rem;color:var(--muted)">items packed</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="progress-label" id="progressLabel">Start ticking off items to track progress.</div>
+      </div>
+      <button onclick="resetChecklist()" style="padding:.65rem 1.4rem;background:#fee2e2;color:#dc2626;border-radius:50px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;white-space:nowrap">🔄 Reset Checklist</button>
+    </div>
+
+    <!-- Checklist Categories -->
+    <div class="checklist-categories" id="checklistArea">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- All Done Banner -->
+    <div id="allDoneBanner" style="display:none;margin-top:2rem;text-align:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);padding:2rem">
+      <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+      <h3 style="font-size:1.3rem;font-weight:700;color:#15803d;margin-bottom:.5rem">You're All Set to Travel!</h3>
+      <p style="color:var(--muted)">All items are packed. Have a safe and wonderful journey!</p>
+      <a href="destinations.html" class="btn btn-primary btn-sm" style="margin-top:1rem">Explore Destinations →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><h2>🌍 TravelMate</h2><p>Informational tourist guide. No booking services.</p></div>
+      <div class="footer-col"><h3>Navigate</h3><ul>
+        <li><a href="index.html">Home</a></li><li><a href="destinations.html">Destinations</a></li>
+        <li><a href="travel-tips.html">Travel Tips</a></li><li><a href="contact.html">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 TravelMate – Smart Tourist Guide. B.Tech Mini Project.</p></div>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/checklist.js"></script>
+</body>
+</html>

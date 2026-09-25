@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Tips – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.25rem; }
+    .checklist-section { max-width:680px; margin:0 auto; }
+    .progress-bar-wrap { background:var(--surface2); border-radius:99px; height:10px; overflow:hidden; margin:.5rem 0; }
+    .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--primary),#7c3aed); border-radius:99px; transition:width .4s; }
+    .dest-season-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+    .season-panel-content { display:none; }
+    .season-panel-content.active { display:block; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">✈️</div><span>TravelMate</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="travel-tips.html" class="active">Travel Tips</a>
+      <a href="food.html">Food & Culture</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>💡 Smart Travel Tips</h1>
+    <p>Practical, up-to-date tips to help you travel smarter, safer and more comfortably.</p>
+  </div>
+</div>
+
+<!-- ─── General Tips ──────────────────────────────────────── -->
+<section class="section" id="general">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">General Tips</span>
+      <h2>Smart Travel Advice for Everyone</h2>
+      <p>Essential tips every traveller should know regardless of destination.</p>
+    </div>
+    <div class="tips-grid stagger" id="generalTipsGrid"></div>
+  </div>
+</section>
+
+<!-- ─── Season Tips ───────────────────────────────────────── -->
+<section class="section section-alt" id="season">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Travel by Season</span>
+      <h2>Season-Wise Travel Tips</h2>
+      <p>Get tailored advice based on when you are planning to travel.</p>
+    </div>
+    <div class="season-tabs">
+      <div class="season-tab active" onclick="showSeason('summer',this)">☀️ Summer</div>
+      <div class="season-tab" onclick="showSeason('monsoon',this)">🌧️ Monsoon</div>
+      <div class="season-tab" onclick="showSeason('winter',this)">❄️ Winter</div>
+    </div>
+    <div id="season-summer" class="season-panel-content active">
+      <div class="tips-grid" id="summer-tips"></div>
+    </div>
+    <div id="season-monsoon" class="season-panel-content">
+      <div class="tips-grid" id="monsoon-tips"></div>
+    </div>
+    <div id="season-winter" class="season-panel-content">
+      <div class="tips-grid" id="winter-tips"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Destination-Specific Tips ────────────────────────── -->
+<section class="section" id="destination-tips">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Destination Specific</span>
+      <h2>Tips by Destination</h2>
+      <p>Select a destination to read its specific travel advice.</p>
+    </div>
+    <div class="search-bar" style="max-width:380px;margin:0 auto 2rem">
+      <span>🔍</span>
+      <input type="text" id="destTipSearch" placeholder="Search destination…" oninput="filterDestTips()">
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem" id="destTipsGrid"></div>
+  </div>
+</section>
+
+<!-- ─── Travel Checklist ──────────────────────────────────── -->
+<section class="section section-alt" id="checklist">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">My Travel Checklist</span>
+      <h2>Pack Smart — Never Forget Anything</h2>
+      <p>Tick off items as you pack. Progress is saved automatically in your browser.</p>
+    </div>
+    <div class="checklist-section">
+      <!-- Progress -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+          <span id="progressLabel" style="font-size:.9rem;font-weight:600;color:var(--text)">0 of 20 items packed</span>
+          <span id="progressPct" style="font-size:.9rem;font-weight:700;color:var(--primary)">0%</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+      <!-- Items -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem" id="checklistItems"></div>
+      <!-- Reset -->
+      <button id="resetChecklist" class="btn btn-outline btn-full">🔄 Reset Checklist</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── When to Visit Feature ─────────────────────────────── -->
+<section class="section" id="when">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">📅 When Should I Visit?</span>
+      <h2>Best Time to Visit Each Destination</h2>
+      <p>A quick-reference guide for all 15 destinations.</p>
+    </div>
+    <div class="dest-season-grid" id="whenGrid"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">✈️ TravelMate</div><p>India's informational tourist guide — free, no booking services.</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="destinations.html">Destinations</a><a href="food.html">Food & Culture</a></div>
+      <div class="footer-col"><h4>More</h4><a href="about.html">About</a><a href="contact.html">Feedback</a></div>
+      <div class="footer-col"><h4>Note</h4><p style="font-size:.85rem">Informational guide only. No booking services.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 TravelMate — B.Tech Mini Project</span><span>Informational Guide Only</span></div>
+  </div>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/checklist.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ─── General tips ──────────────────────────────────────────
+  const genGrid = document.getElementById('generalTipsGrid');
+  GENERAL_TIPS.forEach(t => {
+    genGrid.innerHTML += `
+      <div class="tip-card">
+        <div class="tip-icon">${t.icon}</div>
+        <div class="tip-text"><h4>${t.title}</h4><p>${t.tip}</p></div>
+      </div>`;
+  });
+
+  // ─── Season tips ───────────────────────────────────────────
+  function buildSeasonTips(season) {
+    const data = SEASON_TIPS[season];
+    const container = document.getElementById(season + '-tips');
+    container.innerHTML = data.tips.map(tip => `
+      <div class="tip-card">
+        <div class="tip-icon">${data.icon}</div>
+        <div class="tip-text"><p>${tip}</p></div>
+      </div>`).join('');
+  }
+  buildSeasonTips('summer'); buildSeasonTips('monsoon'); buildSeasonTips('winter');
+
+  function showSeason(s, el) {
+    document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.season-panel-content').forEach(p => p.classList.remove('active'));
+    document.getElementById('season-' + s).classList.add('active');
+  }
+
+  // ─── Destination-specific tips ─────────────────────────────
+  const dtg = document.getElementById('destTipsGrid');
+  DESTINATIONS.forEach(d => {
+    dtg.innerHTML += `
+      <div class="card dest-tip-card" data-name="${d.name.toLowerCase()}" style="padding:0">
+        <div style="padding:1rem 1.25rem;background:var(--surface);border-bottom:1px solid var(--border)">
+          <strong>${d.name}</strong>
+          <span class="badge badge-blue" style="margin-left:.5rem">${d.bestSeason}</span>
+        </div>
+        <div style="padding:1rem 1.25rem">
+          ${(d.tips || []).map(tip => `
+            <div style="display:flex;gap:.6rem;padding:.4rem 0;border-bottom:1px solid #f1f5f9;font-size:.875rem">
+              <span>💡</span><span>${tip}</span>
+            </div>`).join('')}
+          <a href="destination-detail.html?id=${d.id}" class="btn btn-primary btn-sm btn-full" style="margin-top:.75rem">View Full Guide</a>
+        </div>
+      </div>`;
+  });
+
+  function filterDestTips() {
+    const q = document.getElementById('destTipSearch').value.toLowerCase();
+    document.querySelectorAll('.dest-tip-card').forEach(c => {
+      c.style.display = c.dataset.name.includes(q) ? '' : 'none';
+    });
+  }
+
+  // ─── When to Visit grid ───────────────────────────────────
+  const wg = document.getElementById('whenGrid');
+  DESTINATIONS.forEach(d => {
+    wg.innerHTML += `
+      <div class="info-item" style="border-left:4px solid var(--primary)">
+        <div style="font-weight:700;margin-bottom:.3rem">📍 ${d.name}</div>
+        <span class="badge badge-amber">${d.bestSeason}</span>
+        <div style="margin-top:.6rem;font-size:.85rem;color:var(--text-muted);line-height:1.7">
+          <em>${d.weather.reason}</em>
+        </div>
+      </div>`;
+  });
+</script>
+</body>
+</html>

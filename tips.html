@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Tips – TravelMate</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-brand">
+    <a href="index.html"><i class="fas fa-compass"></i> TravelMate</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="destinations.html">Destinations</a></li>
+    <li><a href="destinations.html#places">Places</a></li>
+    <li><a href="tips.html" class="active">Travel Tips</a></li>
+    <li><a href="food.html">Food & Travel</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <h1><i class="fas fa-lightbulb"></i> Smart Travel Tips</h1>
+    <p>Essential tips, seasonal advice and destination-specific guidance for every traveller.</p>
+  </div>
+</div>
+
+<!-- GENERAL TIPS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-star"></i> Essential Travel Tips</h2>
+      <p>Important tips every traveller should keep in mind.</p>
+    </div>
+    <div class="general-tips-grid" id="generalTipsGrid"></div>
+  </div>
+</section>
+
+<!-- SEASON TIPS -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-cloud-sun"></i> Travel Tips by Season</h2>
+      <p>Choose your travel season to get season-specific advice.</p>
+    </div>
+    <div class="season-tabs">
+      <button class="season-tab active" data-season="summer"><i class="fas fa-sun"></i> Summer</button>
+      <button class="season-tab" data-season="monsoon"><i class="fas fa-cloud-rain"></i> Monsoon</button>
+      <button class="season-tab" data-season="winter"><i class="fas fa-snowflake"></i> Winter</button>
+    </div>
+    <div class="season-content" id="seasonContent"></div>
+  </div>
+</section>
+
+<!-- DESTINATION SPECIFIC TIPS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-map-marker-alt"></i> Destination-Specific Tips</h2>
+      <p>Select a destination to see tailored travel advice.</p>
+    </div>
+    <div class="dest-tips-selector">
+      <select id="destTipsSelect" class="when-select">
+        <option value="">-- Choose a Destination --</option>
+      </select>
+      <button class="btn btn-primary" id="destTipsBtn"><i class="fas fa-search"></i> Show Tips</button>
+    </div>
+    <div class="dest-tips-result" id="destTipsResult"></div>
+
+    <!-- Quick dest tips cards -->
+    <div class="section-header mt-40">
+      <h3>Highlighted Destination Tips</h3>
+    </div>
+    <div class="dest-tips-highlight-grid" id="destTipsHighlight"></div>
+  </div>
+</section>
+
+<!-- SAFETY TIPS -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-shield-alt"></i> Safety Tips</h2>
+    </div>
+    <div class="safety-tips-grid">
+      <div class="safety-card">
+        <i class="fas fa-shield-alt"></i>
+        <h4>Protect Your Belongings</h4>
+        <p>Keep valuables secure in crowded places. Use money belts or inside pockets for cash and cards.</p>
+      </div>
+      <div class="safety-card">
+        <i class="fas fa-phone-alt"></i>
+        <h4>Emergency Contacts</h4>
+        <p>Save police (100), ambulance (108), fire brigade (101) and local emergency numbers before travelling.</p>
+      </div>
+      <div class="safety-card">
+        <i class="fas fa-user-friends"></i>
+        <h4>Travel in Groups</h4>
+        <p>Especially for remote or unfamiliar areas, travelling with others adds safety and convenience.</p>
+      </div>
+      <div class="safety-card">
+        <i class="fas fa-wifi"></i>
+        <h4>Stay Connected</h4>
+        <p>Keep your phone charged and share your itinerary with a trusted family member or friend.</p>
+      </div>
+      <div class="safety-card">
+        <i class="fas fa-map"></i>
+        <h4>Know Your Area</h4>
+        <p>Study the destination map before visiting. Download offline maps for areas with poor connectivity.</p>
+      </div>
+      <div class="safety-card">
+        <i class="fas fa-hospital"></i>
+        <h4>Nearest Medical Facility</h4>
+        <p>Identify the nearest hospital or clinic at your destination before starting outdoor activities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECO TIPS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-leaf"></i> Responsible Travel Tips</h2>
+      <p>Travel responsibly. Protect nature and respect communities.</p>
+    </div>
+    <div class="eco-tips-grid">
+      <div class="eco-card"><i class="fas fa-recycle"></i><p>Carry a reusable water bottle and avoid single-use plastics.</p></div>
+      <div class="eco-card"><i class="fas fa-trash"></i><p>Never litter. Carry a small bag for your waste.</p></div>
+      <div class="eco-card"><i class="fas fa-tree"></i><p>Do not damage or remove flora and fauna from natural reserves.</p></div>
+      <div class="eco-card"><i class="fas fa-paw"></i><p>Do not disturb or feed wild animals.</p></div>
+      <div class="eco-card"><i class="fas fa-hands"></i><p>Support local artisans and small businesses.</p></div>
+      <div class="eco-card"><i class="fas fa-water"></i><p>Do not use harmful chemicals near water bodies or coral reefs.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fas fa-compass"></i> TravelMate</h3>
+        <p>Your simple guide to discovering amazing places across India.</p>
+        <p class="footer-note"><i class="fas fa-info-circle"></i> Information only. No ticket or hotel booking.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="destinations.html">Destinations</a></li>
+          <li><a href="tips.html">Travel Tips</a></li>
+          <li><a href="food.html">Food & Travel</a></li>
+          <li><a href="checklist.html">Travel Checklist</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 TravelMate – Smart Tourist Guide | B.Tech Mini Project</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/tips.js"></script>
+</body>
+</html>

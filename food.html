@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food & Culture – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
+    .food-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); transition:var(--transition); }
+    .food-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); }
+    .food-card-head { padding:1rem 1.25rem; background:linear-gradient(135deg,var(--primary),#7c3aed); color:#fff; }
+    .food-card-head h3 { font-size:1rem; margin:0; }
+    .food-card-head span { font-size:.8rem; opacity:.85; }
+    .food-card-body { padding:1.25rem; }
+    .dish-tag { display:inline-block; background:#f0fdf4; color:#15803d; border-radius:99px; padding:.2rem .65rem; font-size:.8rem; font-weight:600; margin:.15rem; }
+    .filter-tabs { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">✈️</div><span>TravelMate</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="food.html" class="active">Food & Culture</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>🍛 Food & Local Experiences</h1>
+    <p>Explore the flavours, markets and cultural experiences of India's iconic destinations.</p>
+  </div>
+</div>
+
+<!-- ─── Intro ─────────────────────────────────────────────── -->
+<section class="section section-alt" style="padding:2.5rem 0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem">
+      <div class="info-item" style="text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">🍛</div>
+        <div class="info-val">100+ Dishes</div>
+        <div class="info-label">Across 15 destinations</div>
+      </div>
+      <div class="info-item" style="text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">🛒</div>
+        <div class="info-val">30+ Markets</div>
+        <div class="info-label">Local bazaars & food streets</div>
+      </div>
+      <div class="info-item" style="text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">🎭</div>
+        <div class="info-val">Unique Experiences</div>
+        <div class="info-label">Cultural food traditions</div>
+      </div>
+      <div class="info-item" style="text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">ℹ️</div>
+        <div class="info-val">Info Only</div>
+        <div class="info-label">No restaurant booking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Search ────────────────────────────────────────────── -->
+<section class="section-sm" style="padding:2rem 0 0">
+  <div class="container">
+    <div class="search-bar" style="max-width:420px;margin:0 auto 1.5rem">
+      <span>🔍</span>
+      <input type="text" id="foodSearch" placeholder="Search destination or dish…" oninput="filterFood()">
+    </div>
+    <div class="filter-tabs">
+      <button class="pill active" onclick="filterByState('all', this)">All Destinations</button>
+      <button class="pill" onclick="filterByState('goa', this)">Goa</button>
+      <button class="pill" onclick="filterByState('kerala', this)">Kerala</button>
+      <button class="pill" onclick="filterByState('rajasthan', this)">Rajasthan</button>
+      <button class="pill" onclick="filterByState('delhi', this)">Delhi</button>
+      <button class="pill" onclick="filterByState('mumbai', this)">Mumbai</button>
+      <button class="pill" onclick="filterByState('hyderabad', this)">Hyderabad</button>
+      <button class="pill" onclick="filterByState('varanasi', this)">Varanasi</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Food Cards ────────────────────────────────────────── -->
+<section class="section-sm" style="padding:1.5rem 0 4rem">
+  <div class="container">
+    <div class="food-grid stagger" id="foodGrid"></div>
+  </div>
+</section>
+
+<!-- ─── Food Tips ─────────────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Food Safety Tips</span>
+      <h2>Eat Smart While Travelling</h2>
+      <p>Follow these tips to enjoy local food safely and responsibly.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem">
+      <div class="tip-card"><div class="tip-icon">🌊</div><div class="tip-text"><h4>Choose Busy Stalls</h4><p>Popular stalls with high turnover are fresher and safer than quiet ones.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">💧</div><div class="tip-text"><h4>Drink Bottled Water</h4><p>Always drink sealed bottled water. Avoid ice unless you know the source.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🧼</div><div class="tip-text"><h4>Wash Hands</h4><p>Always wash hands before eating, especially after visiting markets and temples.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🌶️</div><div class="tip-text"><h4>Spice Levels</h4><p>Indian food can be very spicy. Ask for mild preparations if you are not used to spices.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🥗</div><div class="tip-text"><h4>Fresh is Best</h4><p>Prefer freshly cooked hot food over pre-cooked or reheated items at street stalls.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🍃</div><div class="tip-text"><h4>Eco-Friendly Eating</h4><p>Choose establishments that use banana leaves, earthen pots or recyclable containers.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">✈️ TravelMate</div><p>Informational tourist guide. No booking services offered.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="destinations.html">Destinations</a><a href="travel-tips.html">Travel Tips</a></div>
+      <div class="footer-col"><h4>Info</h4><a href="about.html">About</a><a href="contact.html">Feedback</a></div>
+      <div class="footer-col"><h4>Note</h4><p style="font-size:.85rem">Food information is for reference only. No restaurant booking offered.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 TravelMate — B.Tech Mini Project</span><span>Informational Guide Only</span></div>
+  </div>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  let activeState = 'all';
+  let searchQ = '';
+
+  function renderFood() {
+    const grid = document.getElementById('foodGrid');
+    const entries = Object.entries(FOOD);
+
+    const filtered = entries.filter(([key, val]) => {
+      const matchState = activeState === 'all' || key === activeState;
+      const dest = DESTINATIONS.find(d => d.id === key);
+      const name = dest ? dest.name.toLowerCase() : key;
+      const matchSearch = !searchQ || name.includes(searchQ) ||
+        (val.dishes || []).some(d => d.toLowerCase().includes(searchQ)) ||
+        (val.experience || '').toLowerCase().includes(searchQ);
+      return matchState && matchSearch;
+    });
+
+    if (!filtered.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted)">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🍽️</div>
+        <h3 style="color:var(--text)">No results found</h3>
+        <p>Try a different search or filter.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(([key, val]) => {
+      const dest = DESTINATIONS.find(d => d.id === key) || {};
+      return `
+        <div class="food-card" data-key="${key}">
+          <div class="food-card-head">
+            <h3>🍛 ${dest.name || key}</h3>
+            <span>${dest.tagline || ''} · ${dest.state || ''}</span>
+          </div>
+          <div class="food-card-body">
+            <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:.5rem">Famous Dishes</div>
+            <div style="margin-bottom:1rem">
+              ${(val.dishes || []).map(d => `<span class="dish-tag">${d}</span>`).join('')}
+            </div>
+            <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:.3rem">✨ Experience</div>
+            <div style="font-size:.875rem;color:var(--text-muted);margin-bottom:.75rem">${val.experience || '—'}</div>
+            <div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:.3rem">🛒 Markets</div>
+            <div style="font-size:.875rem;color:var(--text-muted);margin-bottom:1rem">${val.market || '—'}</div>
+            <a href="destination-detail.html?id=${key}" class="btn btn-primary btn-sm btn-full">View Destination →</a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function filterFood() {
+    searchQ = document.getElementById('foodSearch').value.toLowerCase();
+    renderFood();
+  }
+
+  function filterByState(state, el) {
+    activeState = state;
+    document.querySelectorAll('.filter-tabs .pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    renderFood();
+  }
+
+  renderFood();
+</script>
+</body>
+</html>

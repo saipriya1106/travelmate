@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – TravelMate</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .about-hero { background:linear-gradient(135deg,#0f172a,#1e3a5f); color:#fff; padding:5rem 0 4rem; text-align:center; }
+    .about-hero h1 { color:#fff; margin-bottom:.75rem; }
+    .about-hero p { color:rgba(255,255,255,.75); max-width:560px; margin:0 auto; font-size:1.05rem; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+    @media (max-width:768px) { .about-grid { grid-template-columns:1fr; gap:2rem; } }
+    .about-img { border-radius:var(--radius-lg); overflow:hidden; }
+    .about-img img { width:100%; height:420px; object-fit:cover; }
+    .feature-list { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
+    .feature-item { display:flex; gap:1rem; align-items:flex-start; }
+    .fi-icon { font-size:1.4rem; flex-shrink:0; margin-top:.1rem; }
+    .fi-text h4 { font-size:.95rem; margin-bottom:.2rem; }
+    .fi-text p { font-size:.875rem; margin:0; }
+    .not-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+    .not-card { border-radius:var(--radius); padding:1.25rem; text-align:center; background:#fff8f8; border:1px solid #fecaca; }
+    .not-card .icon { font-size:1.8rem; margin-bottom:.5rem; }
+    .not-card p { font-size:.85rem; color:#dc2626; font-weight:600; margin:0; }
+    .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.5rem; }
+    .team-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; text-align:center; box-shadow:var(--shadow-sm); }
+    .team-card .avatar { width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#7c3aed); display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin:0 auto .75rem; }
+    .team-card h4 { font-size:.95rem; margin-bottom:.2rem; }
+    .team-card p { font-size:.8rem; margin:0; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">✈️</div><span>TravelMate</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="food.html">Food & Culture</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html" class="nav-cta">Feedback</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ─── Hero ─────────────────────────────────────────────── -->
+<div class="about-hero">
+  <div class="container">
+    <div style="display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px;margin-bottom:1.25rem">B.Tech Mini Project</div>
+    <h1>About TravelMate</h1>
+    <p>An informational tourist guide designed to help travellers discover India's best destinations, tourist attractions, local food, suitable travel seasons and practical travel tips.</p>
+  </div>
+</div>
+
+<!-- ─── Mission ──────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="badge badge-blue" style="margin-bottom:1rem">Our Mission</span>
+        <h2 style="margin-bottom:1rem">Your Smart Travel Planning Partner</h2>
+        <p style="font-size:1rem;line-height:1.85;margin-bottom:1.5rem">TravelMate is a free, informational tourist guide built to help travellers — especially first-time visitors — discover India's most beautiful destinations with confidence. The platform answers the three most important pre-trip questions: <strong>Where should I go? When should I go? What should I know?</strong></p>
+        <p style="font-size:.95rem;line-height:1.8">All information on this website is provided purely for educational and informational purposes. TravelMate does not sell tickets, book hotels, arrange transportation or process any payments. It is simply a comprehensive travel information resource.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="fi-icon">🗺️</span>
+            <div class="fi-text"><h4>15 Destinations Covered</h4><p>Detailed guides for popular Indian destinations across beaches, hills, history and culture.</p></div>
+          </div>
+          <div class="feature-item">
+            <span class="fi-icon">📅</span>
+            <div class="fi-text"><h4>Season-Based Guidance</h4><p>Clear recommendations on the best time to visit each destination with weather context.</p></div>
+          </div>
+          <div class="feature-item">
+            <span class="fi-icon">🍛</span>
+            <div class="fi-text"><h4>Food & Culture</h4><p>Local dishes, food experiences and cultural highlights for every destination.</p></div>
+          </div>
+          <div class="feature-item">
+            <span class="fi-icon">✅</span>
+            <div class="fi-text"><h4>Interactive Checklist</h4><p>A packing checklist that saves your progress right in the browser.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Travel" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── What we DON'T do ─────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Important Disclaimer</span>
+      <h2>What TravelMate Does NOT Offer</h2>
+      <p>TravelMate is strictly an informational guide. The following services are NOT available on this platform.</p>
+    </div>
+    <div class="not-grid">
+      <div class="not-card"><div class="icon">✈️</div><p>Flight Booking</p></div>
+      <div class="not-card"><div class="icon">🚂</div><p>Train Booking</p></div>
+      <div class="not-card"><div class="icon">🚌</div><p>Bus Booking</p></div>
+      <div class="not-card"><div class="icon">🏨</div><p>Hotel Booking</p></div>
+      <div class="not-card"><div class="icon">🎫</div><p>Ticket Purchase</p></div>
+      <div class="not-card"><div class="icon">💳</div><p>Payment Gateway</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── What we DO offer ─────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Our Coverage</span>
+      <h2>What TravelMate Provides</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem">
+      <div class="tip-card"><div class="tip-icon">🗺️</div><div class="tip-text"><h4>Destination Profiles</h4><p>About, culture, weather, transport and budget for 15 Indian destinations.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🏛️</div><div class="tip-text"><h4>Tourist Places</h4><p>Major attractions with type, duration and best time to visit.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🌤️</div><div class="tip-text"><h4>Best Time to Visit</h4><p>Season-wise guides with weather summaries and recommendations.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">🍛</div><div class="tip-text"><h4>Food & Culture</h4><p>Famous local dishes, food experiences and cultural activities.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">💡</div><div class="tip-text"><h4>Travel Tips</h4><p>General, season-specific and destination-specific practical advice.</p></div></div>
+      <div class="tip-card"><div class="tip-icon">✅</div><div class="tip-text"><h4>Packing Checklist</h4><p>Interactive checklist with browser-saved progress tracking.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Project Info ─────────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Project Details</span>
+      <h2>About This Project</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem">
+      <div class="info-item"><div class="info-label">Project Type</div><div class="info-val">B.Tech Mini Project</div></div>
+      <div class="info-item"><div class="info-label">Project Title</div><div class="info-val">TravelMate – Smart Tourist Guide</div></div>
+      <div class="info-item"><div class="info-label">Technologies Used</div><div class="info-val">HTML5, CSS3, JavaScript (Vanilla)</div></div>
+      <div class="info-item"><div class="info-label">Destinations Covered</div><div class="info-val">15 Indian Destinations</div></div>
+      <div class="info-item"><div class="info-label">Key Features</div><div class="info-val">Search, Filter, Checklist, Tips, Food Guide</div></div>
+      <div class="info-item"><div class="info-label">Purpose</div><div class="info-val">Informational Travel Guide — No Booking</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">✈️ TravelMate</div><p>India's informational tourist guide. Free travel information for everyone.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="destinations.html">Destinations</a><a href="travel-tips.html">Travel Tips</a><a href="food.html">Food & Culture</a></div>
+      <div class="footer-col"><h4>Info</h4><a href="about.html">About</a><a href="contact.html">Feedback</a></div>
+      <div class="footer-col"><h4>Note</h4><p style="font-size:.85rem">Informational guide only. No booking services offered.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 TravelMate — B.Tech Mini Project</span><span>Informational Guide Only</span></div>
+  </div>
+</footer>
+
+<button id="scrollTop">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
